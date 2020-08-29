@@ -274,9 +274,9 @@ class UnpackLayerConv3d(nn.Module):
             Number of 3D features
         """
         super().__init__()
-        self.conv = Conv2D(in_channels, out_channels * (r ** 2) // d, kernel_size, 1)
+        self.conv = Conv2D(in_channels, out_channels * r ** 2 // d, kernel_size, 1)
         self.unpack = nn.PixelShuffle(r)
-        self.conv3d = nn.Conv3d(1, d, kernel_size=(3, 3, 3),
+        self.conv3d = nn.Conv3d(groups, groups * d, kernel_size=(1, 3, 3),
                                 stride=(1, 1, 1), padding=(1, 1, 1))
 
     def forward(self, x):

@@ -69,11 +69,11 @@ class PackNet01(nn.Module):
 
         # Decoder
 
-        self.unpack5 = UnpackLayerConv3d(n5, n5o, unpack_kernel[0])
-        self.unpack4 = UnpackLayerConv3d(n5, n4o, unpack_kernel[1])
-        self.unpack3 = UnpackLayerConv3d(n4, n3o, unpack_kernel[2])
-        self.unpack2 = UnpackLayerConv3d(n3, n2o, unpack_kernel[3])
-        self.unpack1 = UnpackLayerConv3d(n2, n1o, unpack_kernel[4])
+        self.unpack5 = UnpackLayerConv2d(n5, n5o, unpack_kernel[0])
+        self.unpack4 = UnpackLayerConv2d(n5, n4o, unpack_kernel[1])
+        self.unpack3 = UnpackLayerConv2d(n4, n3o, unpack_kernel[2])
+        self.unpack2 = UnpackLayerConv2d(n3, n2o, unpack_kernel[3])
+        self.unpack1 = UnpackLayerConv2d(n2, n1o, unpack_kernel[4])
 
         self.iconv5 = Conv2D(n5i, n5, iconv_kernel[0], 1)
         self.iconv4 = Conv2D(n4i, n4, iconv_kernel[1], 1)
