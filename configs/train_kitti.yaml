@@ -1,5 +1,5 @@
 checkpoint:
-    filepath: '/content/kitti-ckpt'
+    filepath: '/content/drive/kitti-ckpt'
     save_top_k: -1
 model:
     name: 'SelfSupModel'
