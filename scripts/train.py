@@ -52,6 +52,9 @@ def train(file):
     # Initialize model wrapper
     model_wrapper = ModelWrapper(config, resume=ckpt, logger=logger)
 
+    print("Depth Net - %d parameters" % sum(p.numel() for p in model_wrapper.depth_net.parameters()))
+    print("Pose Net - %d parameters" % sum(p.numel() for p in model_wrapper.pose_net.parameters()))
+
     # Create trainer with args.arch parameters
     trainer = HorovodTrainer(**config.arch, checkpoint=checkpoint)
 
