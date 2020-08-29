@@ -3,7 +3,7 @@
 import torch
 import torch.nn as nn
 from packnet_sfm.networks.layers.packnet.layers01 import \
-    PackLayerConv3d, UnpackLayerConv3d, Conv2D, ResidualBlock, InvDepth
+    PackLayerConv3d, UnpackLayerConv3d, UnpackLayerConv2d, Conv2D, ResidualBlock, InvDepth
 
 class PackNet01(nn.Module):
     """
