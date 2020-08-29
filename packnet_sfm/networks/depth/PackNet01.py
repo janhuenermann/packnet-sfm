@@ -55,11 +55,11 @@ class PackNet01(nn.Module):
 
         # Encoder
 
-        self.pack1 = PackLayerConv3d(n1, pack_kernel[0], 8)
-        self.pack2 = PackLayerConv3d(n2, pack_kernel[1], 8)
-        self.pack3 = PackLayerConv3d(n3, pack_kernel[2], 16)
-        self.pack4 = PackLayerConv3d(n4, pack_kernel[3], 32)
-        self.pack5 = PackLayerConv3d(n5, pack_kernel[4], 64)
+        self.pack1 = PackLayerConv3d(n1, pack_kernel[0])
+        self.pack2 = PackLayerConv3d(n2, pack_kernel[1])
+        self.pack3 = PackLayerConv3d(n3, pack_kernel[2])
+        self.pack4 = PackLayerConv3d(n4, pack_kernel[3])
+        self.pack5 = PackLayerConv3d(n5, pack_kernel[4])
 
         self.conv1 = Conv2D(ni, n1, 7, 1)
         self.conv2 = ResidualBlock(n1, n2, num_blocks[0], 1, dropout=dropout)
