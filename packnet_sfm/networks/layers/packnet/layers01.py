@@ -221,7 +221,7 @@ class PackLayerConv3d(nn.Module):
     Packing layer with 3d convolutions. Takes a [B,C,H,W] tensor, packs it
     into [B,(r^2)C,H/r,W/r] and then convolves it to produce [B,C,H/r,W/r].
     """
-    def __init__(self, in_channels, kernel_size, groups, r=2, d=2):
+    def __init__(self, in_channels, kernel_size, groups, r=2, d=4):
         """
         Initializes a PackLayerConv3d object.
 

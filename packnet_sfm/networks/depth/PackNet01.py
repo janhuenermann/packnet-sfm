@@ -29,8 +29,8 @@ class PackNet01(nn.Module):
         in_channels = 3
         out_channels = 1
         # Hyper-parameters
-        ni, no = 64, out_channels
-        n1, n2, n3, n4, n5 = 64, 64, 128, 256, 512
+        ni, no = 32, out_channels
+        n1, n2, n3, n4, n5 = 32, 32, 64, 128, 256
         num_blocks = [2, 2, 3, 3]
         pack_kernel = [5, 3, 3, 3, 3]
         unpack_kernel = [3, 3, 3, 3, 3]
@@ -55,11 +55,11 @@ class PackNet01(nn.Module):
 
         # Encoder
 
-        self.pack1 = PackLayerConv3d(n1, pack_kernel[0], 8)
-        self.pack2 = PackLayerConv3d(n2, pack_kernel[1], 8)
-        self.pack3 = PackLayerConv3d(n3, pack_kernel[2], 16)
-        self.pack4 = PackLayerConv3d(n4, pack_kernel[3], 32)
-        self.pack5 = PackLayerConv3d(n5, pack_kernel[4], 64)
+        self.pack1 = PackLayerConv3d(n1, pack_kernel[0], 4)
+        self.pack2 = PackLayerConv3d(n2, pack_kernel[1], 4)
+        self.pack3 = PackLayerConv3d(n3, pack_kernel[2], 8)
+        self.pack4 = PackLayerConv3d(n4, pack_kernel[3], 16)
+        self.pack5 = PackLayerConv3d(n5, pack_kernel[4], 32)
 
         self.conv1 = Conv2D(ni, n1, 7, 1)
         self.conv2 = ResidualBlock(n1, n2, num_blocks[0], 1, dropout=dropout)
