@@ -22,18 +22,24 @@ class Conv2D(nn.Module):
     stride : int
         Stride
     """
-    def __init__(self, in_channels, out_channels, kernel_size, stride):
+    def __init__(self, in_channels, out_channels, kernel_size, stride, activation=True):
         super().__init__()
         self.kernel_size = kernel_size
         self.conv_base = nn.Conv2d(
             in_channels, out_channels, kernel_size=kernel_size, stride=stride)
         self.pad = nn.ConstantPad2d([kernel_size // 2] * 4, value=0)
         self.normalize = torch.nn.GroupNorm(16, out_channels)
-        self.activ = nn.ELU(inplace=True)
+
+        if activation:
+            self.activ = nn.ELU(inplace=True)
+        else:
+            self.activ = None
 
     def forward(self, x):
         """Runs the Conv2D layer."""
         x = self.conv_base(self.pad(x))
+        if self.activ is None:
+            return x
         return self.activ(self.normalize(x))
 
 
@@ -56,7 +62,7 @@ class ResidualConv(nn.Module):
         """
         super().__init__()
         self.conv1 = Conv2D(in_channels, out_channels, 3, stride)
-        self.conv2 = Conv2D(out_channels, out_channels, 3, 1)
+        self.conv2 = Conv2D(out_channels, out_channels, 3, 1, activation=False)
         self.conv3 = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride)
         self.normalize = torch.nn.GroupNorm(16, out_channels)
         self.activ = nn.ELU(inplace=True)
