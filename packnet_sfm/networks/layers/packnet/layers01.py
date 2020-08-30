@@ -26,7 +26,7 @@ class Conv2D(nn.Module):
         super().__init__()
         self.kernel_size = kernel_size
         self.conv_base = nn.Conv2d(
-            in_channels, out_channels, kernel_size=kernel_size, stride=stride, bias=bias)
+            in_channels, out_channels, kernel_size=kernel_size, stride=stride, bias=bias and not activation)
         self.pad = nn.ConstantPad2d([kernel_size // 2] * 4, value=0)
         self.normalize = torch.nn.GroupNorm(16, out_channels)
 
@@ -241,8 +241,6 @@ class PackLayerConv3d(nn.Module):
         self.pack = partial(packing, r=r)
         self.conv3d = nn.Conv3d(groups, groups * d, kernel_size=(r ** 2, 3, 3),
                                 stride=(r ** 2, 1, 1), padding=(0, 1, 1), groups=groups)
-
-        assert groups % 4 == 0
 
     def forward(self, x):
         """Runs the PackLayerConv3d layer."""
